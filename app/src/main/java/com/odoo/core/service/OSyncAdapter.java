@@ -125,13 +125,18 @@ public class OSyncAdapter extends AbstractThreadedSyncAdapter {
                 // Calling service callback
                 if (mService != null)
                     mService.performDataSync(this, extras, mUser);
+                Log.i(TAG, "hello..mService>: " +mService);
 
                 //Creating domain
                 ODomain domain = (mDomain.containsKey(mModel.getModelName())) ?
                         mDomain.get(mModel.getModelName()) : null;
+                Log.i(TAG, "hello..domain>: " +domain);
+                Log.i(TAG, "hello..getModelName>: " +mModel.getModelName()+"mModel"+mModel);
+                Log.i(TAG, "hello..mUser>: " +mUser);
 
                 // Ready for sync data from server
                 syncData(mModel, mUser, domain, syncResult, true, true);
+                Log.i(TAG, "hello..after syncdata>: " +syncResult);
             } else {
                 Log.e(TAG, "Unable to connect with Odoo Server.");
             }
@@ -140,6 +145,7 @@ public class OSyncAdapter extends AbstractThreadedSyncAdapter {
 
     private void syncData(OModel model, OUser user, ODomain domain_filter,
                           SyncResult result, Boolean checkForDataLimit, Boolean createRelationRecords) {
+        Log.i(TAG, "hello..>Sync for (" + model.getModelName() + ") Started at " + ODateUtils.getDate());
         Log.v(TAG, "Sync for (" + model.getModelName() + ") Started at " + ODateUtils.getDate());
         model.onSyncStarted();
         try {
@@ -181,6 +187,7 @@ public class OSyncAdapter extends AbstractThreadedSyncAdapter {
                     .withRetryPolicy(OConstants.RPC_REQUEST_TIME_OUT, OConstants.RPC_REQUEST_RETRIES)
                     .searchRead(model.getModelName(), getFields(model)
                             , domain, 0, mSyncDataLimit, "create_date DESC");
+            Log.i(TAG, "hello..>response"+response);
             if (response == null) {
                 // FIXME: Check in library. May be timeout issue with slow network.
                 Log.w(TAG, "Response null from server.");

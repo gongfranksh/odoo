@@ -22,6 +22,7 @@ package com.odoo.addons.customers;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.LoaderManager;
@@ -136,6 +137,13 @@ public class Customers extends BaseFragment implements ISyncStatusObserverListen
         }
         String selection = (args.size() > 0) ? where : null;
         String[] selectionArgs = (args.size() > 0) ? args.toArray(new String[args.size()]) : null;
+        Uri tt = db().uri();
+        CursorLoader ii = new CursorLoader(getActivity(), db().uri(),
+                null, selection, selectionArgs, "name");
+
+
+
+
         return new CursorLoader(getActivity(), db().uri(),
                 null, selection, selectionArgs, "name");
     }

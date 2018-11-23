@@ -85,6 +85,24 @@
             android:authorities="${applicationId}.core.provider.content.sync.res_partner"
             android:label="@string/sync_label_customers"
             android:multiprocess="true" />
+        <!-- Sync Provider & Service  // -->
+        <provider
+            android:name="com.odoo.addons.bncmember.providers.BncMemberSyncProvider"
+            android:authorities="com.odoo.addons.bncmember.bnc_member"
+            android:label="@string/bncmember"
+            android:multiprocess="true" />
+
+        <service android:name="com.odoo.addons.bncmember.services.BncMemberSyncService"
+            android:exported="true"
+            android:process=":sync_bncmember">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/bncmember_sync_adapter" />
+        </service>
 
         <service
             android:name="com.odoo.addons.customers.services.CustomerSyncService"

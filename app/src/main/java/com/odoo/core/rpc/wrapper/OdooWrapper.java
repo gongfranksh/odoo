@@ -22,6 +22,7 @@ package com.odoo.core.rpc.wrapper;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
@@ -149,6 +150,8 @@ public class OdooWrapper<T> implements Response.Listener<JSONObject> {
 
     private void newJSONPOSTRequest(final String url, JSONObject params,
                                     IOdooResponse odooResponse, OdooSyncResponse backResponse) {
+
+        Log.i(TAG, "hello..>newJSONPOSTRequest=>\n"+url+"\n");
         OdooLog.d("REQUEST URL : " + url);
         final JSONObject postData = createRequestWrapper(params, odooResponse);
         OdooLog.d("POST DATA: " + postData);
@@ -571,6 +574,7 @@ public class OdooWrapper<T> implements Response.Listener<JSONObject> {
     public OdooResult searchRead(String model, OdooFields fields, ODomain domain,
                                  int offset, int limit, String sort) {
         OdooSyncResponse response = new OdooSyncResponse();
+        Log.i(TAG, "hello..>response"+response);
         searchRead(model, fields, domain, offset, limit, sort, null, response);
         return validateResult(response);
     }
@@ -600,6 +604,10 @@ public class OdooWrapper<T> implements Response.Listener<JSONObject> {
             params.put("offset", offset);
             params.put("limit", limit);
             params.put("sort", (sort == null) ? "" : sort);
+            Log.i(TAG, "hello..>newJSONPOSTRequest-url>"+"\n"+url+"\n");
+            Log.i(TAG, "hello..>newJSONPOSTRequest-params>"+"\n"+params+"\n");
+            Log.i(TAG, "hello..>newJSONPOSTRequest-callback>"+"\n"+callback+"\n");
+            Log.i(TAG, "hello..>newJSONPOSTRequest_backResponse>"+"\n"+backResponse+"\n");
             newJSONPOSTRequest(url, params, callback, backResponse);
         } catch (Exception e) {
             OdooLog.e(e, e.getMessage());
