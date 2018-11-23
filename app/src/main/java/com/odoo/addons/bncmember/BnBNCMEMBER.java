@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.odoo.R;
 import com.odoo.addons.bncmember.models.BncMember;
@@ -116,15 +117,12 @@ public class BnBNCMEMBER extends BaseFragment implements
 
         if (inNetwork()) {
             parent().sync().requestSync(BncMember.AUTHORITY);
+            setSwipeRefreshing(true);
+        } else {
+            hideRefreshingProgress();
+            Toast.makeText(getActivity(), _s(R.string.toast_network_required), Toast.LENGTH_LONG)
+                    .show();
         }
-//        if (inNetwork()) {
-//            parent().sync().requestSync(ResPartner.AUTHORITY);
-//            setSwipeRefreshing(true);
-//        } else {
-//            hideRefreshingProgress();
-//            Toast.makeText(getActivity(), _s(R.string.toast_network_required), Toast.LENGTH_LONG)
-//                    .show();
-//        }
     }
 
     @Override
@@ -201,8 +199,10 @@ public class BnBNCMEMBER extends BaseFragment implements
     public void onViewBind(View view, Cursor cursor, ODataRow row) {
 
         OControls.setText(view, R.id.strPhone, row.getString("strPhone"));
-//        OControls.setText(view, R.id.strBncName, row.getString("strBncName"));
-//        OControls.setText(view,R.id,row.getString("strSex");
-//        OControls.setText(view, R.id.strPhone, row.getString("nickname"));
+        OControls.setText(view, R.id.strbnccardid, row.getString("strBncCardid"));
+        OControls.setText(view, R.id.nickname, row.getString("nickname"));
+        OControls.setText(view, R.id.viplevelname, row.getString("total_amount"));
+
+
     }
 }
