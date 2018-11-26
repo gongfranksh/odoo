@@ -1,6 +1,7 @@
 package com.odoo.addons.bncmember;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,6 +11,9 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -24,6 +28,7 @@ import com.odoo.core.support.addons.fragment.IOnSearchViewChangeListener;
 import com.odoo.core.support.addons.fragment.ISyncStatusObserverListener;
 import com.odoo.core.support.drawer.ODrawerItem;
 import com.odoo.core.support.list.OCursorListAdapter;
+import com.odoo.core.utils.IntentUtils;
 import com.odoo.core.utils.OControls;
 import com.odoo.core.utils.OCursorUtils;
 
@@ -97,20 +102,21 @@ public class BnBNCMEMBER extends BaseFragment implements
         getLoaderManager().restartLoader(0, null, this);
     }
 
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        super.onCreateOptionsMenu(menu, inflater);
-//        menu.clear();
-//        inflater.inflate(R.menu.menu_partners, menu);
-//        setHasSearchView(this, menu, R.id.menu_partner_search);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
+        inflater.inflate(R.menu.menu_bcnmember, menu);
+        setHasSearchView(this, menu, R.id.menu_bncmemeber_search);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     @Override
     public void onRefresh() {
@@ -133,12 +139,19 @@ public class BnBNCMEMBER extends BaseFragment implements
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         ODataRow row = OCursorUtils.toDatarow((Cursor) mAdapter.getItem(i));
+        Bundle  data = new Bundle();
+        if (row != null) {
+            data = row.getPrimaryBundleData();
+        }
+        IntentUtils.startActivity(getActivity(),BnBNCMemberDetail.class,data);
     }
 
 
     @Override
     public boolean onSearchViewTextChange(String newFilter) {
-        return false;
+        mCurFilter = newFilter;
+        getLoaderManager().restartLoader(0, null, this);
+        return true;
     }
 
     @Override

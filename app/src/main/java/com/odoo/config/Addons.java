@@ -34,6 +34,8 @@ public class Addons extends AddonsHelper {
      * for maintain sequence call withSequence(int sequence)
      * OAddon partners = new OAddon(Partners.class).withSequence(2);
      */
-    OAddon customers = new OAddon(Customers.class).setDefault();
-    OAddon memeber = new OAddon(BnBNCMEMBER.class).withSequence(2);
+    OAddon customers = new OAddon(Customers.class).withSequence(2);
+    OAddon memeber = new OAddon(BnBNCMEMBER.class).setDefault();
+//    OAddon customers = new OAddon(Customers.class).setDefault();
+//    OAddon memeber = new OAddon(BnBNCMEMBER.class).withSequence(2);
 }
