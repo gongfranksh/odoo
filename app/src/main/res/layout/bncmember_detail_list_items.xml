@@ -56,6 +56,7 @@
                 app:fieldName="num_6"
                 app:fieldTextAppearance="?android:textAppearanceMedium"
                 app:showLabel="false"></odoo.controls.OField>
+
             <View
                 style="@style/ViewSeparator"
                 android:layout_marginLeft="72dp" />
@@ -95,6 +96,7 @@
                 app:fieldName="strSex"
                 app:fieldTextAppearance="?android:textAppearanceMedium"
                 app:iconResource="@drawable/ic_action_notes_content"></odoo.controls.OField>
+
             <View
                 style="@style/ViewSeparator"
                 android:layout_marginLeft="72dp" />
@@ -105,6 +107,33 @@
                 app:fieldName="total_amount"
                 app:fieldTextAppearance="?android:textAppearanceMedium"
                 app:widgetType="SearchableLive"></odoo.controls.OField>
+
+            <odoo.controls.OField
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fieldName="resid"></odoo.controls.OField>
+
+            <View
+                style="@style/ViewSeparator"
+                android:layout_marginLeft="72dp" />
+
+
+            <TextView
+                android:id="@+id/displaytagsname"
+
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/body_text_1"
+                android:fontFamily="@string/font_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></TextView>
+
+
+            <!--<odoo.controls.OField-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:fieldName="tagsid"-->
+
+            <!--&gt;</odoo.controls.OField>-->
 
         </odoo.controls.OForm>
     </LinearLayout>
@@ -132,13 +161,11 @@
                 android:orientation="vertical">
 
 
-
                 <View style="@style/ViewSeparator" />
 
                 <View
                     style="@style/ViewSeparator"
                     android:layout_marginLeft="72dp" />
-
 
 
                 <View

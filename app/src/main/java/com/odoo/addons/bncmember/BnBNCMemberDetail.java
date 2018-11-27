@@ -9,11 +9,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.odoo.App;
 import com.odoo.R;
 import com.odoo.addons.bncmember.models.BncMember;
+import com.odoo.addons.bncmember.models.BncTags;
 import com.odoo.addons.customers.CustomerDetails;
 import com.odoo.addons.customers.Customers;
 import com.odoo.addons.customers.utils.ShareUtil;
@@ -26,6 +28,10 @@ import com.odoo.core.utils.OAlert;
 import com.odoo.core.utils.OResource;
 import com.odoo.core.utils.OStringColorUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import odoo.controls.OEditTextField;
 import odoo.controls.OField;
 import odoo.controls.OForm;
 
@@ -41,6 +47,12 @@ public class BnBNCMemberDetail extends OdooCompatActivity
     private Boolean mEditMode = false;
     private Menu mMenu;
     private ODataRow record = null;
+    private TextView tv_tagids;
+    //    private BncTags bncTags = null;
+    private List<ODataRow> bncTags = new ArrayList<>();
+    private BncTags loadBncTags = null;
+
+//    private OEditTextField tt;
 
     @Override
     public void onClick(View view) {
@@ -57,6 +69,8 @@ public class BnBNCMemberDetail extends OdooCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bncmember_detail);
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.bncmember_collapsing_toolbar);
+        tv_tagids = (TextView) findViewById(R.id.displaytagsname);
+//        tt = (OEditTextField) findViewById(R.id.displaytags);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -65,9 +79,15 @@ public class BnBNCMemberDetail extends OdooCompatActivity
         setMode(mEditMode);
         bncMember = new BncMember(this, null);
         extras = getIntent().getExtras();
+
+
         if (!hasRecordInExtra())
             mEditMode = true;
         setupToolbar();
+
+//        tv_tagids.setText("haha你好");
+//        tt.setLabelText("dddd");
+//        tt.setValue("dfkajfkasd ");
 //        int rowId=extras.getInt(OColumn.ROW_ID);
 
 
@@ -157,6 +177,14 @@ public class BnBNCMemberDetail extends OdooCompatActivity
             if (record.getInt("id") != 0 && record.getString("large_image").equals("false")) {
 //                CustomerDetails.BigImageLoader bigImageLoader = new CustomerDetails.BigImageLoader();
 //                bigImageLoader.execute(record.getInt("id"));
+
+                bncTags.addAll(record.getM2MRecord("tagsid").browseEach());
+
+                String display_tags = "";
+                for (ODataRow i : bncTags) {
+                    display_tags += i.getString("name")+";";
+                }
+                tv_tagids.setText(display_tags);
             }
         }
     }

@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.odoo.R;
 import com.odoo.addons.bncmember.models.BncMember;
+import com.odoo.addons.bncmember.models.BncTags;
 import com.odoo.core.orm.ODataRow;
 import com.odoo.core.support.addons.fragment.BaseFragment;
 import com.odoo.core.support.addons.fragment.IOnSearchViewChangeListener;
@@ -63,6 +64,7 @@ public class BnBNCMEMBER extends BaseFragment implements
     public Class<BncMember> database() {
         return BncMember.class;
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

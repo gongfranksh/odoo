@@ -40,18 +40,20 @@ public class BncMember extends OModel {
             .addSelection("2", "VIP会员");
     OColumn strSex = new OColumn("'性别'", OSelection.class)
             .addSelection("0", "未设置")
-            .addSelection("1", "'男性'")
-            .addSelection("2", "'女性'");
+            .addSelection("1", "男性")
+            .addSelection("2", "女性");
 
     OColumn Birthday = new OColumn("'生日'", ODateTime.class);
 
-    OColumn num_1 = new OColumn("'归属地'", OVarchar.class).setSize(100);
-    OColumn num_2 = new OColumn("'卡类型'", OVarchar.class).setSize(100);
-    OColumn num_3 = new OColumn("'运营商'", OVarchar.class).setSize(100);
-    OColumn num_4 = new OColumn("'区号'", OVarchar.class).setSize(100);
-    OColumn num_5 = new OColumn("'邮编'", OVarchar.class).setSize(100);
-    OColumn num_6 = new OColumn("'省份'", OVarchar.class).setSize(100);
-    OColumn num_7 = new OColumn("'城市'", OVarchar.class).setSize(100);
+    OColumn tagsid  = new OColumn("用户标签", BncTags.class,OColumn.RelationType.ManyToMany);
+
+    OColumn num_1 = new OColumn("归属地", OVarchar.class).setSize(100);
+    OColumn num_2 = new OColumn("卡类型", OVarchar.class).setSize(100);
+    OColumn num_3 = new OColumn("运营商", OVarchar.class).setSize(100);
+    OColumn num_4 = new OColumn("区号", OVarchar.class).setSize(100);
+    OColumn num_5 = new OColumn("邮编", OVarchar.class).setSize(100);
+    OColumn num_6 = new OColumn("省份", OVarchar.class).setSize(100);
+    OColumn num_7 = new OColumn("城市", OVarchar.class).setSize(100);
 
     public Uri uri() {
         return buildURI(AUTHORITY);
